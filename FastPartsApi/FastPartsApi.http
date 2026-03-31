@@ -1,0 +1,6 @@
+@FastPartsApi_HostAddress = http://localhost:5103
+
+GET {{FastPartsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
