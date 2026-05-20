@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FastPartsApi.Models;
 
@@ -13,7 +14,9 @@ public partial class Cart
 
     public int Amount { get; set; }
 
-    public virtual Part IdPartNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Part? IdPartNavigation { get; set; } = null!;
 
-    public virtual User IdUserNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual User? IdUserNavigation { get; set; } = null!;
 }

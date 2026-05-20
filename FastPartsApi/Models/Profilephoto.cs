@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FastPartsApi.Models;
 
@@ -9,5 +10,6 @@ public partial class Profilephoto
 
     public string Photo { get; set; } = null!;
 
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    [JsonIgnore]
+    public virtual ICollection<User>? Users { get; set; } = new List<User>();
 }

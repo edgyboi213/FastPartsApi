@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FastPartsApi.Models;
 
@@ -23,15 +24,23 @@ public partial class Part
 
     public string Volume { get; set; } = null!;
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public int? Price { get; set; }
 
-    public virtual Category IdCategoryNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual ICollection<Cart>? Carts { get; set; } = new List<Cart>();
 
-    public virtual Medium IdMediaNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Category? IdCategoryNavigation { get; set; } = null!;
 
-    public virtual Oemnumber IdOemNumberNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Medium? IdMediaNavigation { get; set; } = null!;
 
-    public virtual ICollection<Orderpart> Orderparts { get; set; } = new List<Orderpart>();
+    [JsonIgnore]
+    public virtual Oemnumber? IdOemNumberNavigation { get; set; } = null!;
 
-    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    [JsonIgnore]
+    public virtual ICollection<Orderpart>? Orderparts { get; set; } = new List<Orderpart>();
+
+    [JsonIgnore]
+    public virtual ICollection<Review>? Reviews { get; set; } = new List<Review>();
 }

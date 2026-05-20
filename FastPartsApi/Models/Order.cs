@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FastPartsApi.Models;
 
@@ -11,7 +12,9 @@ public partial class Order
 
     public DateTime OrderDate { get; set; }
 
-    public virtual User IdUserNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual User? IdUserNavigation { get; set; } = null!;
 
-    public virtual ICollection<Orderpart> Orderparts { get; set; } = new List<Orderpart>();
+    [JsonIgnore]
+    public virtual ICollection<Orderpart>? Orderparts { get; set; } = new List<Orderpart>();
 }

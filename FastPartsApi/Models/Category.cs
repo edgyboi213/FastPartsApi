@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FastPartsApi.Models;
 
@@ -9,5 +10,6 @@ public partial class Category
 
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
+    [JsonIgnore]
+    public virtual ICollection<Part>? Parts { get; set; } = new List<Part>();
 }

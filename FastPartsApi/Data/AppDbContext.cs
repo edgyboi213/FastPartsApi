@@ -38,7 +38,9 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -119,24 +121,21 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Orderpart>(entity =>
         {
-            entity.HasKey(e => new { e.OrderIdOrder, e.PartIdPart }).HasName("PRIMARY");
+            entity.HasKey(e => new { e.IdOrder, e.IdPart }).HasName("PRIMARY");
 
             entity.ToTable("orderpart");
 
-            entity.HasIndex(e => e.OrderIdOrder, "fk_Order_has_Part_Order1_idx");
+            entity.HasIndex(e => e.IdOrder, "fk_Order_has_Part_Order1_idx");
 
-            entity.HasIndex(e => e.PartIdPart, "fk_Order_has_Part_Part1_idx");
+            entity.HasIndex(e => e.IdPart, "fk_Order_has_Part_Part1_idx");
 
-            entity.Property(e => e.OrderIdOrder).HasColumnName("Order_IdOrder");
-            entity.Property(e => e.PartIdPart).HasColumnName("Part_IdPart");
-
-            entity.HasOne(d => d.OrderIdOrderNavigation).WithMany(p => p.Orderparts)
-                .HasForeignKey(d => d.OrderIdOrder)
+            entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.Orderparts)
+                .HasForeignKey(d => d.IdOrder)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_Order_has_Part_Order1");
 
-            entity.HasOne(d => d.PartIdPartNavigation).WithMany(p => p.Orderparts)
-                .HasForeignKey(d => d.PartIdPart)
+            entity.HasOne(d => d.IdPartNavigation).WithMany(p => p.Orderparts)
+                .HasForeignKey(d => d.IdPart)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_Order_has_Part_Part1");
         });
@@ -193,6 +192,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.IdUser, "fk_Review_user1_idx");
 
+            entity.Property(e => e.ReviewDate).HasColumnType("date");
             entity.Property(e => e.ReviewText).HasMaxLength(5000);
 
             entity.HasOne(d => d.IdPartNavigation).WithMany(p => p.Reviews)
@@ -214,9 +214,11 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.IdProfilePhoto, "fk_User_ProfilePhoto1_idx");
 
+            entity.Property(e => e.DeliveryAddress).HasMaxLength(300);
             entity.Property(e => e.FullName).HasMaxLength(100);
             entity.Property(e => e.Login).HasMaxLength(45);
             entity.Property(e => e.Password).HasMaxLength(30);
+            entity.Property(e => e.Phone).HasMaxLength(45);
 
             entity.HasOne(d => d.IdProfilePhotoNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.IdProfilePhoto)
