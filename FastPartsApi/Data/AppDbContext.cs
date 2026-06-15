@@ -113,6 +113,8 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.OrderDate).HasColumnType("date");
 
+            entity.Property(e => e.Status).HasMaxLength(20);
+
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdUser)
                 .OnDelete(DeleteBehavior.ClientSetNull)

@@ -12,6 +12,8 @@ public partial class Order
 
     public DateTime OrderDate { get; set; }
 
+    public string? Status { get; set; }
+
     [JsonIgnore]
     public virtual User? IdUserNavigation { get; set; } = null!;
 
